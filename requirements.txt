@@ -1,0 +1,11 @@
+numpy
+pandas
+networkx
+igraph
+faiss-cpu
+sentence-transformers
+transformers
+python-dotenv
+google-genai
+scikit-learn
+tqdm
