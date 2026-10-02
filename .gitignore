@@ -11,10 +11,6 @@ env/
 # Environment variables
 .env
 
-# Dataset
-data/*
-!data/.gitkeep
-
 # Generated artifacts
 artifacts/*
 !artifacts/.gitkeep
