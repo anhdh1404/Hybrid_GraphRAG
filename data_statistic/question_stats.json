@@ -1,0 +1,349 @@
+[
+  {
+    "file": "medical_questions.json",
+    "num_questions": 2062,
+    "fields": [
+      "answer",
+      "evidence",
+      "evidence_relations",
+      "id",
+      "question",
+      "question_type",
+      "source"
+    ],
+    "by_type": {
+      "Fact Retrieval": {
+        "count": 1098,
+        "q_words": {
+          "mean": 9.6,
+          "median": 9.0,
+          "p90": 13.0,
+          "min": 3,
+          "max": 21
+        },
+        "a_words": {
+          "mean": 11.1,
+          "median": 10.0,
+          "p90": 15.1,
+          "min": 4,
+          "max": 45
+        },
+        "a_sents": {
+          "mean": 1.0,
+          "median": 1.0,
+          "p90": 1.0,
+          "min": 1,
+          "max": 2
+        },
+        "evidence": {
+          "mean": 2.3,
+          "median": 2.0,
+          "p90": 4.0,
+          "min": 1,
+          "max": 17
+        }
+      },
+      "Complex Reasoning": {
+        "count": 509,
+        "q_words": {
+          "mean": 17.0,
+          "median": 17,
+          "p90": 22.0,
+          "min": 9,
+          "max": 31
+        },
+        "a_words": {
+          "mean": 17.5,
+          "median": 17,
+          "p90": 23.0,
+          "min": 6,
+          "max": 32
+        },
+        "a_sents": {
+          "mean": 1.0,
+          "median": 1,
+          "p90": 1.0,
+          "min": 1,
+          "max": 2
+        },
+        "evidence": {
+          "mean": 3.5,
+          "median": 3,
+          "p90": 5.0,
+          "min": 1,
+          "max": 13
+        }
+      },
+      "Contextual Summarize": {
+        "count": 289,
+        "q_words": {
+          "mean": 14.1,
+          "median": 14,
+          "p90": 17.0,
+          "min": 7,
+          "max": 22
+        },
+        "a_words": {
+          "mean": 77.5,
+          "median": 76,
+          "p90": 146.0,
+          "min": 15,
+          "max": 216
+        },
+        "a_sents": {
+          "mean": 3.0,
+          "median": 3,
+          "p90": 6.0,
+          "min": 1,
+          "max": 8
+        },
+        "evidence": {
+          "mean": 6.1,
+          "median": 5,
+          "p90": 10.0,
+          "min": 2,
+          "max": 18
+        }
+      },
+      "Creative Generation": {
+        "count": 166,
+        "q_words": {
+          "mean": 36.6,
+          "median": 36.0,
+          "p90": 46.0,
+          "min": 21,
+          "max": 64
+        },
+        "a_words": {
+          "mean": 169.5,
+          "median": 160.5,
+          "p90": 252.8,
+          "min": 75,
+          "max": 418
+        },
+        "a_sents": {
+          "mean": 9.8,
+          "median": 9.0,
+          "p90": 15.0,
+          "min": 5,
+          "max": 28
+        },
+        "evidence": {
+          "mean": 13.1,
+          "median": 13.0,
+          "p90": 17.0,
+          "min": 6,
+          "max": 26
+        }
+      }
+    },
+    "sources": {
+      "Medical": 2062
+    },
+    "longest_answer_example": {
+      "Fact Retrieval": {
+        "id": "Medical-10fa6b86",
+        "question": "Which hereditary syndromes are risk factors for adrenocortical carcinoma?",
+        "answer": "Risk factors for adrenocortical carcinoma include Beckwith-Wiedemann syndrome, Carney complex, Familial adenomatous polyposis (FAP), Hereditary paraganglioma-pheochromocytoma (PGL/PCC) syndrome, Li-Fraumeni syndrome, Lynch syndrome, Multiple endocrine neoplasia type 1 (MEN 1), Multiple endocrine neoplasia type 2 (MEN 2), Neurofibromatosis type 1 (NF1), and Von Hippel-Lindau syndrome (VHL)."
+      },
+      "Complex Reasoning": {
+        "id": "Medical-f2800f11",
+        "question": "Which care team roles are necessary for comprehensive diagnosis and treatment planning in pancreatic cancer?",
+        "answer": "A multidisciplinary care team including diagnostic radiologist, interventional radiologist, pathologist, gastroenterologist, medical oncologist, surgical oncologist, radiation oncologist, geriatrician, registered dietitian, genetic counselor, palliative care provider, and mental health provider is necessary."
+      },
+      "Contextual Summarize": {
+        "id": "Medical-8e6563e6",
+        "question": "What diagnostic methods and biomarkers are used in the evaluation of ovarian cancer?",
+        "answer": "The evaluation of ovarian cancer utilizes a combination of diagnostic methods and biomarker assessments. Diagnostic methods include physical examination (abdominal and pelvic exam), imaging studies such as ultrasound (including transvaginal ultrasound), CT scan, MRI, PET scan, and chest x-ray to assess the extent of disease and possible metastasis. Diagnostic laparoscopy may be performed to evaluate disease spread in the abdomen. Definitive diagnosis requires a biopsy, which is often performed during initial surgery or, if surgery is not immediately possible, via fine-needle aspiration (FNA), core biopsy, or paracentesis. Blood tests are also important and include complete blood count (CBC), blood chemistry profile, liver function tests, and tumor marker tests. Key tumor markers for ovarian cancer include CA-125 and HE4, as well as others such as inhibin, beta-human chorionic gonadotropin (β-hCG), alpha-fetoprotein (AFP), lactate dehydrogenase (LDH), carcinoembryonic antigen (CEA), and CA 19-9, which may be elevated in less common ovarian cancers. Biomarker and genetic testing are recommended for all patients and include assessment for BRCA1 and BRCA2 mutations (both germline and somatic), homologous recombination deficiency (HRD) status, microsatellite instability (MSI), mismatch repair (MMR) deficiency, HER2 expression, tumor mutational burden (TMB), BRAF V600E mutation, folate receptor alpha (FRα) expression, RET mutations, and NTRK gene fusions. These biomarkers help guide treatment decisions and eligibility for targeted therapies or clinical trials."
+      },
+      "Creative Generation": {
+        "id": "Medical-700264e4",
+        "question": "Rewrite the key recommendations for NPC diagnosis and surveillance as a structured clinical protocol for a multidisciplinary tumor board. Include essential steps for staging, biomarker evaluation, and follow-up planning.",
+        "answer": "**Nasopharyngeal Carcinoma (NPC): Multidisciplinary Clinical Protocol**\n\n1. Initial Assessment:\n   - Obtain a comprehensive medical history, including geographic origin (notably Asia, Native America, North Africa), family history, and risk factors such as tobacco and alcohol use, and potential EBV exposure.\n   - Document all current symptoms, including neck mass, hearing loss, nasal obstruction, or other head and neck complaints, recognizing that early NPC may be asymptomatic.\n\n2. Physical Examination:\n   - Perform a thorough head and neck examination, including nasopharyngeal fiberoptic endoscopy and assessment for cervical lymphadenopathy.\n\n3. Diagnostic Workup:\n   - Imaging: Order contrast-enhanced CT and/or MRI of the head and neck to assess the primary tumor and regional lymph nodes. PET/CT should be considered to evaluate for distant metastases. Ultrasound may be used to guide lymph node biopsy.\n   - Biopsy: Obtain tissue diagnosis via biopsy of the nasopharyngeal lesion and/or fine-needle aspiration (FNA), fine-needle biopsy (FNB), or core needle biopsy (CNB) of suspicious lymph nodes. If metastases are suspected, biopsy of metastatic sites should be performed as appropriate.\n\n4. Biomarker Evaluation:\n   - At diagnosis, perform biomarker testing for EBV DNA (plasma or tumor), MSI-H/dMMR, PD-L1, HPV, and tumor mutational burden, as these may inform prognosis and therapeutic decision-making.\n\n5. Staging:\n   - Utilize the AJCC TNM system to classify tumor size (T), nodal involvement (N), and distant metastasis (M).\n   - Categorize disease as resectable, unresectable, locoregional, locally advanced, or metastatic based on imaging and clinical findings.\n\n6. Multidisciplinary Review and Initial Management Planning:\n   - Present the case at a multidisciplinary tumor board to review diagnostic findings and determine optimal management.\n   - Assess performance status to guide treatment selection.\n   - Conduct dental and nutritional evaluations prior to therapy due to the potential impact of treatment on oral health and nutrition.\n   - Discuss fertility preservation options with the patient before initiating therapy, as treatment may affect fertility.\n\n7. Surveillance and Follow-up Planning:\n   - Develop a surveillance plan including periodic physical examinations and imaging (CT, MRI, or PET/CT) as clinically indicated, particularly in the first 5 years post-treatment.\n   - Schedule serial EBV DNA testing for early detection of recurrence.\n   - Adjust follow-up intervals based on individual risk of recurrence and patient-specific factors.\n\nThis protocol ensures a comprehensive, evidence-based approach to the diagnosis, staging, biomarker evaluation, and surveillance of NPC, facilitating coordinated multidisciplinary care."
+      }
+    }
+  },
+  {
+    "file": "novel_questions.json",
+    "num_questions": 2010,
+    "fields": [
+      "answer",
+      "evidence",
+      "evidence_triple",
+      "id",
+      "question",
+      "question_type",
+      "source"
+    ],
+    "by_type": {
+      "Fact Retrieval": {
+        "count": 971,
+        "q_words": {
+          "mean": 17.9,
+          "median": 18,
+          "p90": 24.0,
+          "min": 4,
+          "max": 52
+        },
+        "a_words": {
+          "mean": 7.6,
+          "median": 6,
+          "p90": 11.0,
+          "min": 1,
+          "max": 147
+        },
+        "a_sents": {
+          "mean": 1.2,
+          "median": 1,
+          "p90": 2.0,
+          "min": 1,
+          "max": 11
+        },
+        "evidence": {
+          "mean": 1.4,
+          "median": 1,
+          "p90": 2.0,
+          "min": 1,
+          "max": 13
+        }
+      },
+      "Complex Reasoning": {
+        "count": 610,
+        "q_words": {
+          "mean": 17.7,
+          "median": 16.0,
+          "p90": 27.0,
+          "min": 8,
+          "max": 46
+        },
+        "a_words": {
+          "mean": 17.5,
+          "median": 16.0,
+          "p90": 27.0,
+          "min": 3,
+          "max": 110
+        },
+        "a_sents": {
+          "mean": 1.3,
+          "median": 1.0,
+          "p90": 2.0,
+          "min": 1,
+          "max": 11
+        },
+        "evidence": {
+          "mean": 2.6,
+          "median": 2.0,
+          "p90": 4.0,
+          "min": 1,
+          "max": 13
+        }
+      },
+      "Contextual Summarize": {
+        "count": 362,
+        "q_words": {
+          "mean": 27.5,
+          "median": 25.0,
+          "p90": 44.0,
+          "min": 9,
+          "max": 76
+        },
+        "a_words": {
+          "mean": 87.1,
+          "median": 93.0,
+          "p90": 129.7,
+          "min": 6,
+          "max": 172
+        },
+        "a_sents": {
+          "mean": 3.6,
+          "median": 3.0,
+          "p90": 6.0,
+          "min": 1,
+          "max": 12
+        },
+        "evidence": {
+          "mean": 3.5,
+          "median": 3.0,
+          "p90": 5.0,
+          "min": 1,
+          "max": 9
+        }
+      },
+      "Creative Generation": {
+        "count": 67,
+        "q_words": {
+          "mean": 24.1,
+          "median": 23,
+          "p90": 32.2,
+          "min": 13,
+          "max": 48
+        },
+        "a_words": {
+          "mean": 121.6,
+          "median": 133,
+          "p90": 163.8,
+          "min": 45,
+          "max": 196
+        },
+        "a_sents": {
+          "mean": 5.6,
+          "median": 5,
+          "p90": 8.2,
+          "min": 3,
+          "max": 10
+        },
+        "evidence": {
+          "mean": 7.1,
+          "median": 7,
+          "p90": 10.0,
+          "min": 4,
+          "max": 14
+        }
+      }
+    },
+    "sources": {
+      "Novel-8559": 137,
+      "Novel-10356": 130,
+      "Novel-10146": 126,
+      "Novel-54537": 120,
+      "Novel-2544": 114,
+      "Novel-58553": 112,
+      "Novel-47558": 108,
+      "Novel-25646": 104,
+      "Novel-44557": 103,
+      "Novel-41603": 103,
+      "Novel-40700": 102,
+      "Novel-29973": 102,
+      "Novel-26183": 96,
+      "Novel-30752": 87,
+      "Novel-5956": 86,
+      "Novel-47676": 81,
+      "Novel-51410": 78,
+      "Novel-10762": 78,
+      "Novel-4128": 72,
+      "Novel-10321": 71
+    },
+    "longest_answer_example": {
+      "Fact Retrieval": {
+        "id": "Novel-f6dc40fb",
+        "question": "According to the chroniclers' descriptions in 'Vestiges of the Mayas,' what ecological features characterize caves in the Yucatan Peninsula, and how do these caves interact with their surrounding environments, including their relationship to streams, springs, gases, stalactites, stalagmites, lowlands, lakes, sloughs, forests, and the wildlife such as sea birds and water fowls?",
+        "answer": "According to the chroniclers' vivid accounts, the caves of the Yucatan Peninsula are remarkable for their hidden streams and inexhaustible springs of clear, cold water, often inhabited by shrimps and fishes whose origins and destinations remain mysterious. These subterranean waters provide rare and precious sources of life in a landscape otherwise devoid of surface rivers or lakes. The caves themselves are adorned with dramatic stalactites and stalagmites, and serve as natural outlets for escaping gases. Surrounding these caves, the lowlands have given rise to lakes and sloughs, while the dense forests above offer sanctuary to sea birds and water fowls. The roots of trees, in their desperate search for water, can be seen plunging down the sheer brinks of the senotes, sometimes reaching a hundred feet to touch the hidden waters below, illustrating the profound and intricate relationship between the caves and the living world around them."
+      },
+      "Complex Reasoning": {
+        "id": "Novel-506824e8",
+        "question": "What role did the Second Minnesota play in the Union's efforts during the conflicts with the Sioux?",
+        "answer": "The Second Minnesota played a pivotal role in the Union's efforts, most notably distinguishing itself as the heroes of the decisive Battle of Mill Springs—the first major Union victory of the Civil War. Their valor on the battlefield not only earned them the admiration of their fellow Minnesotans, whose pride swelled at the regiment's achievements, but also drew the attention and congratulations of President Lincoln himself. Beyond Mill Springs, the Second Minnesota was integral to the Union forces, answering the call to arms with such enthusiasm that their numbers exceeded the initial requirements, and their presence became a symbol of Minnesota's deep commitment to the Union cause."
+      },
+      "Contextual Summarize": {
+        "id": "Novel-f3cb62dc",
+        "question": "How did Joachim Heinrich Campe address and define the concept of 'Empfindsamkeit' in his writings, especially in his publication 'Ueber Empfindsamkeit und Empfindelei in pädagogischer Hinsicht', and how was his distinction between 'Empfindsamkeit' and 'Empfindelei' reiterated in his later work 'Ueber die Reinigung und Bereicherung der deutschen Sprache'?",
+        "answer": "Joachim Heinrich Campe offered a nuanced critique of 'Empfindsamkeit' in his publication 'Ueber Empfindsamkeit und Empfindelei in pädagogischer Hinsicht', where he carefully distinguished between genuine moral sensibility and its excessive or superficial forms. He defined 'Empfindsamkeit' as a receptivity to feelings that are rooted in moral joy or pain, emphasizing that, when balanced with reason, it is a valuable and beneficent human capacity. However, he warned that when this sensibility becomes exaggerated and loses harmony with other faculties, it turns destructive, both for the individual and society. To clarify this, Campe reserved 'Empfindsamkeit' for the justly proportioned, sincere expression of feeling, while labeling its irrational, affected, or trivial manifestations as 'Empfindelei'. He further illustrated these distinctions through examples, contrasting authentic, quiet, and serious emotion with theatrical, vain, and shallow displays. This careful differentiation, first articulated in his pedagogical essay, was reiterated and expanded in his later work 'Ueber die Reinigung und Bereicherung der deutschen Sprache', where he continued to warn against the dangers of overwrought sentimentality and the epidemic of superficial feeling."
+      },
+      "Creative Generation": {
+        "id": "Novel-786a5d0e",
+        "question": "Imagine you are Mr. Reade. Write a diary entry about your journey through North Africa, focusing on your visit to Kairwan, your travels with Captain Balfour, and your encounters with the diverse peoples and landscapes described.",
+        "answer": "Diary, April 17th — Today, I finally set foot in Kairwan, that storied city whose very stones seem to whisper of centuries past and the descendants of the Prophet who dwell within its walls. The journey across North Africa has been a tapestry of vivid impressions: the endless groves of palms, their green crowns swaying above the golden dust, and the curious custom in Jereed of lopping off their heads, which struck me as both practical and strangely mournful. Captain Balfour, ever the raconteur, has enlivened our days with tales of Nefta, where he bartered for dates sweeter than any I have tasted. Our encounters with the Atlas Jews in Mogador left a lasting impression—their imposing stature and dignified bearing set them apart from their brethren elsewhere in Morocco. From the haunting Roman ruins scattered across Jereed to the ceaseless flow of merchants and camels streaming from Tunis toward the vast Sahara, each stage of our travels has revealed a new and unexpected facet of this remarkable land. I find myself both humbled and invigorated by the diversity of peoples and the richness of their histories."
+      }
+    }
+  }
+]

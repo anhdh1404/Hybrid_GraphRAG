@@ -1,0 +1,242 @@
+{
+  "corpus": [
+    {
+      "file": "medical.json",
+      "file_size_mb": 1.006277084350586,
+      "num_documents": 1,
+      "document_fields": [
+        "context",
+        "corpus_name"
+      ],
+      "characters": {
+        "total": 1052159,
+        "mean": 1052159,
+        "median": 1052159,
+        "min": 1052159,
+        "max": 1052159,
+        "std": 0.0
+      },
+      "words": {
+        "total": 174610,
+        "mean": 174610,
+        "median": 174610,
+        "min": 174610,
+        "max": 174610,
+        "std": 0.0
+      },
+      "pipeline_estimates": {
+        "num_sentences": 11449,
+        "avg_sentence_chars": 91.8996418901214,
+        "est_tokens": 263039,
+        "chunk_size": 1200,
+        "chunk_overlap": 100,
+        "est_chunks": 957,
+        "g1_llm_calls": 957,
+        "g1_est_input_tokens": 1028639
+      }
+    },
+    {
+      "file": "novel.json",
+      "file_size_mb": 4.624034881591797,
+      "num_documents": 20,
+      "document_fields": [
+        "context",
+        "corpus_name"
+      ],
+      "characters": {
+        "total": 4819610,
+        "mean": 240980.5,
+        "median": 240891.0,
+        "min": 92796,
+        "max": 450081,
+        "std": 93833.73839515576
+      },
+      "words": {
+        "total": 839608,
+        "mean": 41980.4,
+        "median": 42138.0,
+        "min": 18042,
+        "max": 71482,
+        "std": 15545.086766191465
+      },
+      "pipeline_estimates": {
+        "num_sentences": 43829,
+        "avg_sentence_chars": 109.9639508088252,
+        "est_tokens": 1204902,
+        "chunk_size": 1200,
+        "chunk_overlap": 100,
+        "est_chunks": 4389,
+        "g1_llm_calls": 4389,
+        "g1_est_input_tokens": 4716102
+      },
+      "per_document": [
+        {
+          "index": 0,
+          "name": "Novel-30752",
+          "characters": 168274,
+          "words": 29099,
+          "est_chunks": 153,
+          "test_subset": false
+        },
+        {
+          "index": 1,
+          "name": "Novel-51410",
+          "characters": 334209,
+          "words": 60635,
+          "est_chunks": 304,
+          "test_subset": false
+        },
+        {
+          "index": 2,
+          "name": "Novel-58553",
+          "characters": 191743,
+          "words": 33786,
+          "est_chunks": 175,
+          "test_subset": false
+        },
+        {
+          "index": 3,
+          "name": "Novel-10762",
+          "characters": 342668,
+          "words": 58359,
+          "est_chunks": 312,
+          "test_subset": false
+        },
+        {
+          "index": 4,
+          "name": "Novel-26183",
+          "characters": 450081,
+          "words": 71482,
+          "est_chunks": 410,
+          "test_subset": false
+        },
+        {
+          "index": 5,
+          "name": "Novel-29973",
+          "characters": 164036,
+          "words": 27716,
+          "est_chunks": 150,
+          "test_subset": false
+        },
+        {
+          "index": 6,
+          "name": "Novel-10146",
+          "characters": 244216,
+          "words": 42433,
+          "est_chunks": 222,
+          "test_subset": false
+        },
+        {
+          "index": 7,
+          "name": "Novel-47676",
+          "characters": 304362,
+          "words": 53925,
+          "est_chunks": 277,
+          "test_subset": false
+        },
+        {
+          "index": 8,
+          "name": "Novel-10321",
+          "characters": 316622,
+          "words": 53841,
+          "est_chunks": 288,
+          "test_subset": false
+        },
+        {
+          "index": 9,
+          "name": "Novel-8559",
+          "characters": 225822,
+          "words": 39911,
+          "est_chunks": 206,
+          "test_subset": false
+        },
+        {
+          "index": 10,
+          "name": "Novel-47558",
+          "characters": 143800,
+          "words": 25728,
+          "est_chunks": 131,
+          "test_subset": false
+        },
+        {
+          "index": 11,
+          "name": "Novel-25646",
+          "characters": 99076,
+          "words": 18042,
+          "est_chunks": 90,
+          "test_subset": true
+        },
+        {
+          "index": 12,
+          "name": "Novel-5956",
+          "characters": 255527,
+          "words": 47802,
+          "est_chunks": 233,
+          "test_subset": false
+        },
+        {
+          "index": 13,
+          "name": "Novel-2544",
+          "characters": 344399,
+          "words": 60973,
+          "est_chunks": 313,
+          "test_subset": false
+        },
+        {
+          "index": 14,
+          "name": "Novel-41603",
+          "characters": 267307,
+          "words": 48416,
+          "est_chunks": 243,
+          "test_subset": false
+        },
+        {
+          "index": 15,
+          "name": "Novel-54537",
+          "characters": 190409,
+          "words": 31751,
+          "est_chunks": 174,
+          "test_subset": false
+        },
+        {
+          "index": 16,
+          "name": "Novel-10356",
+          "characters": 308774,
+          "words": 52029,
+          "est_chunks": 281,
+          "test_subset": false
+        },
+        {
+          "index": 17,
+          "name": "Novel-40700",
+          "characters": 137923,
+          "words": 23593,
+          "est_chunks": 126,
+          "test_subset": true
+        },
+        {
+          "index": 18,
+          "name": "Novel-4128",
+          "characters": 92796,
+          "words": 18244,
+          "est_chunks": 85,
+          "test_subset": true
+        },
+        {
+          "index": 19,
+          "name": "Novel-44557",
+          "characters": 237566,
+          "words": 41843,
+          "est_chunks": 216,
+          "test_subset": false
+        }
+      ]
+    }
+  ],
+  "combined": {
+    "corpus_files": 2,
+    "total_documents": 21,
+    "total_size_mb": 5.630311965942383,
+    "total_chunks": 5346
+  }
+}
