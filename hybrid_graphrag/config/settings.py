@@ -18,8 +18,10 @@ QUESTION_FILES = {"medical": "medical_questions.json", "novel": "novel_questions
 CHUNK_SIZE = 1200
 CHUNK_OVERLAP = 100
 
-# --- Embedding (chưa chốt, chọn khi làm bước 3) ---
-EMBEDDING_MODEL = "BAAI/bge-small-en-v1.5"
+# --- Embedding ---
+EMBEDDING_MODEL = "google/embeddinggemma-300m"
+EMBEDDING_DIM = 768          # có thể giảm 512/256/128 (Matryoshka), cần build lại index
+EMBEDDING_MAX_SEQ_LEN = 512  # khuyến nghị của model; chunk ~300 token nên đủ
 
 # --- LLM ---
 LLM_MODEL = "gemini-2.5-flash"
