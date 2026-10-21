@@ -25,10 +25,14 @@ EMBEDDING_MAX_SEQ_LEN = 512  # khuyến nghị của model; chunk ~300 token nê
 
 # --- LLM ---
 LLM_MODEL = "gemini-2.5-flash"
-GEMINI_API_KEYS = [
-    v for k, v in sorted(os.environ.items())
-    if k.startswith("GEMINI_API_KEY") and v
-]
+
+GEMINI_API_KEYS = list(dict.fromkeys(
+    v for k, v in sorted(os.environ.items()) if k.startswith("GEMINI_API_KEY") and v
+))
+
+LLM_MAX_RETRIES = 12      # tổng số lần thử (tính cả lần đổi key)
+LLM_MIN_INTERVAL = 0.0    # giây tối thiểu giữa 2 lần gọi; tăng lên nếu hay dính 429
+LLM_TEMPERATURE = 0.0
 
 # --- Retrieval: tham số mặc định và theo loại câu hỏi (điểm xuất phát để tune) ---
 ALPHA = 0.5

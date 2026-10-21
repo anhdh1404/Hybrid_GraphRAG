@@ -45,3 +45,7 @@ def embed_query(query: str) -> np.ndarray:
     if not isinstance(query, str):
         raise TypeError("query phải là str")
     return _encode([query], "query", None, False)
+
+def embed_queries(queries: list[str], show_progress: bool = False) -> np.ndarray:
+    """Embed nhiều câu hỏi một lượt (prompt 'query'). Trả về (n, dim) float32."""
+    return _encode(queries, "query", None, show_progress)

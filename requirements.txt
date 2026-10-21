@@ -9,3 +9,6 @@ python-dotenv
 google-genai
 scikit-learn
 tqdm
+huggingface_hub
+pytest
+pydantic
