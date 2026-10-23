@@ -1,11 +1,14 @@
 # Đo evidence recall@k của baseline vector bằng "chunk vàng" (độ trùng từ nội dung).
+#   python -m experiments.vector_recall                       (mặc định: Novel-25646)
 #   python -m experiments.vector_recall Novel-25646 Novel-4128
+#   python -m experiments.vector_recall novel-all             (cả 20 cuốn novel)
+#   python -m experiments.vector_recall medical
 import re
 import sys
 from collections import defaultdict
 
 from hybrid_graphrag.config import index_dir
-from hybrid_graphrag.data.loader import load_questions
+from hybrid_graphrag.data.loader import load_corpus, load_questions
 from hybrid_graphrag.knowledge_base.embeddings import embed_queries
 from hybrid_graphrag.knowledge_base.vector_db import VectorDB
 
@@ -32,13 +35,22 @@ def new_row() -> dict:
     return {"ev": 0, "grounded": 0, "best_sum": 0.0, **{k: 0 for k in KS}, "examples": []}
 
 
-def run(sources: list[str]) -> None:
+def run(domain: str, sources: list) -> None:
+    """domain 'medical': sources = [None]; domain 'novel': sources = danh sách corpus_name."""
     rows = defaultdict(new_row)
+    used, missing = [], []
     for src in sources:
-        db = VectorDB.load(index_dir("novel", src))
+        path = index_dir(domain, src if domain == "novel" else None)
+        label = src or domain
+        if not VectorDB.exists(path):
+            missing.append(label)
+            continue
+        used.append(label)
+        db = VectorDB.load(path)
         chunk_toks = [toks(c["text"]) for c in db.chunks]
-        qs = [q for q in load_questions("novel", source=src) if evidence_list(q)]
-        qvecs = embed_queries([q["question"] for q in qs])
+        qs = [q for q in load_questions(domain, source=src) if evidence_list(q)]
+        print(f"[{label}] {len(db.chunks)} chunk, {len(qs)} câu hỏi")
+        qvecs = embed_queries([q["question"] for q in qs], show_progress=True)
         for q, qv in zip(qs, qvecs):
             top_rows = [db.id_to_row[h["chunk_id"]] for h in db.search(qv, max(KS))]
             r = rows[q["question_type"]]
@@ -59,12 +71,29 @@ def run(sources: list[str]) -> None:
                 for k in KS:
                     r[k] += bool(gold & set(top_rows[:k]))
 
-    print(f"\nNguồn: {', '.join(sources)}  (tính trên từng câu evidence)")
-    print(f"{'type':<22}{'evid':>6}{'grounded':>10}{'mean_ov':>9}" + "".join(f"{'R@'+str(k):>8}" for k in KS))
-    for t, r in sorted(rows.items(), key=lambda x: -x[1]["ev"]):
+    if missing:
+        print(f"\n[cảnh báo] thiếu index, đã bỏ qua: {', '.join(missing)}")
+    if not rows:
+        print("Không có dữ liệu để đo.")
+        return
+
+    print(f"\n{domain}: {len(used)} index (tính trên từng câu evidence; R@k chỉ tính evidence grounded)")
+    head = f"{'type':<22}{'evid':>6}{'grounded':>10}{'mean_ov':>9}" + "".join(f"{'R@' + str(k):>8}" for k in KS)
+    print(head)
+
+    def line(name: str, r: dict) -> str:
         g = max(r["grounded"], 1)
-        print(f"{t:<22}{r['ev']:>6}{r['grounded']/r['ev']:>10.2f}{r['best_sum']/r['ev']:>9.2f}"
-              + "".join(f"{r[k]/g:>8.2f}" for k in KS))
+        return (f"{name:<22}{r['ev']:>6}{r['grounded'] / r['ev']:>10.2f}{r['best_sum'] / r['ev']:>9.2f}"
+                + "".join(f"{r[k] / g:>8.2f}" for k in KS))
+
+    total = new_row()
+    for t, r in sorted(rows.items(), key=lambda x: -x[1]["ev"]):
+        print(line(t, r))
+        for key in ("ev", "grounded", "best_sum", *KS):
+            total[key] += r[key]
+    print("-" * len(head))
+    print(line("ALL", total))
+
     print("\nVí dụ evidence KHÔNG grounded (độ trùng thấp):")
     for t, r in rows.items():
         for best, ev in r["examples"]:
@@ -73,4 +102,10 @@ def run(sources: list[str]) -> None:
 
 if __name__ == "__main__":
     sys.stdout.reconfigure(encoding="utf-8")
-    run(sys.argv[1:] or ["Novel-25646"])
+    args = sys.argv[1:]
+    if args == ["medical"]:
+        run("medical", [None])
+    elif args == ["novel-all"]:
+        run("novel", [d["corpus_name"] for d in load_corpus("novel")])
+    else:
+        run("novel", args or ["Novel-25646"])
