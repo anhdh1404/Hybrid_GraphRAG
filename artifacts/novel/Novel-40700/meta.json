@@ -1,0 +1,9 @@
+{
+  "embedding_model": "google/embeddinggemma-300m",
+  "embedding_dim": 768,
+  "chunk_size": 1200,
+  "chunk_overlap": 100,
+  "corpus_name": "Novel-40700",
+  "n_chunks": 126,
+  "dim": 768
+}
