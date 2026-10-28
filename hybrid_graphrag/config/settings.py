@@ -23,7 +23,7 @@ EMBEDDING_MODEL = "google/embeddinggemma-300m"
 EMBEDDING_DIM = 768          # có thể giảm 512/256/128 (Matryoshka), cần build lại index
 EMBEDDING_MAX_SEQ_LEN = 512  # khuyến nghị của model; chunk ~300 token nên đủ
 
-# --- LLM ---
+# --- LLM (Gemini) ---
 LLM_MODEL = "gemini-2.5-flash"
 
 GEMINI_API_KEYS = list(dict.fromkeys(
@@ -33,6 +33,12 @@ GEMINI_API_KEYS = list(dict.fromkeys(
 LLM_MAX_RETRIES = 12      # tổng số lần thử (tính cả lần đổi key)
 LLM_MIN_INTERVAL = 0.0    # giây tối thiểu giữa 2 lần gọi; tăng lên nếu hay dính 429
 LLM_TEMPERATURE = 0.0
+
+# --- Model mã nguồn mở chạy bằng vLLM (server tương thích OpenAI), dùng cho G1 khi không đủ quota Gemini ---
+# "localhost" ở đây là chính notebook Kaggle nơi server vLLM được khởi động.
+VLLM_URL = os.environ.get("VLLM_URL", "http://localhost:8000/v1")
+VLLM_MODEL = os.environ.get("VLLM_MODEL", "Qwen/Qwen3.5-4B")
+VLLM_WORKERS = 16   # số yêu cầu gửi song song; vLLM tự gom thành batch
 
 # --- Retrieval: tham số mặc định và theo loại câu hỏi (điểm xuất phát để tune) ---
 ALPHA = 0.5
