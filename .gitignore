@@ -17,14 +17,15 @@ env/
 .DS_Store
 Thumbs.db
 
-# ---------- Dataset gốc (đã có local, không push) ----------
-GraphRAG-Bench/
+# ---------- Dataset: push corpus + questions, bỏ phần không cần ----------
+GraphRAG-Bench/Evaluation/
+GraphRAG-Bench/.git/
 
 # ---------- Artifacts: chỉ giữ chunks.json + meta.json ----------
 artifacts/cache/
 artifacts/runs/
 artifacts/**/vector.faiss
-artifacts/**/g1_units.jsonl
+artifacts/**/g1_units*.jsonl
 artifacts/**/*.gml
 
 # ---------- File nặng chung ----------

@@ -4,7 +4,7 @@
 #   python -m hybrid_graphrag.knowledge_base.graph.build_g1 medical --extractor vllm
 #   --extractor gemini (mặc định): dùng Gemini, chạy tuần tự (tốn quota)
 #   --max-chunks N: chỉ xử lý N chunk chưa xong của mỗi cuốn (để thử nhỏ)
-#   --graph-only: không gọi LLM, chỉ dựng lại đồ thị từ kết quả đã có
+#   --graph-only: không gọi LLM, chỉ dựng lại đồ thị từ kết quả đã có (nhớ truyền cùng --extractor/--model)
 import argparse
 import json
 import re
@@ -14,7 +14,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 import networkx as nx
 
-from hybrid_graphrag.config import LLM_MODEL, VLLM_MODEL, VLLM_WORKERS, index_dir
+from hybrid_graphrag.config import G1_MAX_TOKENS, LLM_MODEL, VLLM_MODEL, VLLM_WORKERS, index_dir
 from hybrid_graphrag.data.loader import load_corpus
 from hybrid_graphrag.data.preprocessor import make_chunks
 from hybrid_graphrag.generation.llm_client import LLMBlockedError, LLMError, call_gemini_json
@@ -23,7 +23,7 @@ from hybrid_graphrag.generation.vllm_client import (
 )
 from hybrid_graphrag.prompts.extraction import Extraction, build_extraction_prompt, clean_extraction
 
-MAX_OUT_TOKENS = 3000
+MAX_CONSECUTIVE_ERRORS = 20  # quá ngưỡng này thường là lỗi cấu hình (schema, prompt), không phải lỗi từng chunk
 
 
 def slug(model: str) -> str:
@@ -36,7 +36,7 @@ def canon(entity: str) -> str:
 
 
 def load_chunks(domain: str, source: str | None) -> list[dict]:
-    """Chunk lấy thẳng từ corpus bằng đúng hàm chunking của index nên chunk_id luôn khớp, không cần artifacts."""
+    """Chunk lấy thẳng từ corpus bằng đúng hàm chunking của index nên chunk_id luôn khớp."""
     docs = load_corpus(domain, source if domain == "novel" else None)
     return [c for d in docs for c in make_chunks(d)]
 
@@ -54,8 +54,8 @@ def read_done(path) -> dict[str, list[dict]]:
 def extract_chunk(extractor: str, model: str, text: str) -> dict:
     system, user = build_extraction_prompt(text)
     if extractor == "vllm":
-        return call_vllm_json(user, system, Extraction, max_output_tokens=MAX_OUT_TOKENS, model=model)
-    return call_gemini_json(user, system, Extraction, model=model, max_output_tokens=4000)
+        return call_vllm_json(user, system, Extraction, max_output_tokens=G1_MAX_TOKENS, model=model)
+    return call_gemini_json(user, system, Extraction, model=model, max_output_tokens=G1_MAX_TOKENS)
 
 
 def extract_all(units_path, chunks, extractor, model, workers, max_chunks) -> dict[str, list[dict]]:
@@ -69,7 +69,7 @@ def extract_all(units_path, chunks, extractor, model, workers, max_chunks) -> di
         return done
 
     stats: dict = {}
-    skipped, t0 = 0, time.time()
+    skipped, consec, t0 = 0, 0, time.time()
     with open(units_path, "a", encoding="utf-8") as f, ThreadPoolExecutor(max_workers=workers) as ex:
         futs = {ex.submit(extract_chunk, extractor, model, c["text"]): c for c in todo}
         try:
@@ -79,8 +79,12 @@ def extract_all(units_path, chunks, extractor, model, workers, max_chunks) -> di
                     data = fut.result()
                 except (VLLMOutputError, LLMBlockedError) as e:
                     skipped += 1
+                    consec += 1
                     print(f"  [bỏ qua] {c['chunk_id']}: {e}")
+                    if consec >= MAX_CONSECUTIVE_ERRORS:
+                        raise LLMError(f"{MAX_CONSECUTIVE_ERRORS} chunk lỗi liên tiếp, nghi lỗi cấu hình (schema/prompt)")
                     continue
+                consec = 0
                 units = clean_extraction(data, stats)
                 f.write(json.dumps({"chunk_id": c["chunk_id"], "units": units}, ensure_ascii=False) + "\n")
                 f.flush()
@@ -163,7 +167,7 @@ def main() -> None:
     model = a.model or (VLLM_MODEL if a.extractor == "vllm" else LLM_MODEL)
     workers = a.workers if a.extractor == "vllm" else 1  # client Gemini không an toàn khi chạy đa luồng
     if a.extractor == "vllm" and not a.graph_only and not vllm_server_ready():
-        sys.exit("Không thấy server vLLM. Khởi động server trước (xem Cell 2 trên Kaggle), hoặc dùng --graph-only.")
+        sys.exit("Không thấy server vLLM. Khởi động server trước, hoặc dùng --graph-only.")
 
     targets = [None] if a.domain == "medical" else (
         [a.source] if a.source else [d["corpus_name"] for d in load_corpus("novel")])

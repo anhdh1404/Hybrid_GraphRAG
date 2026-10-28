@@ -1,26 +1,24 @@
-"""Gọi model mã nguồn mở chạy trên server vLLM (API tương thích OpenAI). Dùng cho G1 khi không đủ quota Gemini."""
+"""Gọi Qwen3-4B-Instruct-2507 chạy trên server vLLM (API tương thích OpenAI). Dùng cho G1."""
 import json
-import re
 import threading
 
 import httpx
 
-from hybrid_graphrag.config import VLLM_MODEL, VLLM_URL
+from hybrid_graphrag.config import G1_MAX_TOKENS, VLLM_MODEL, VLLM_TIMEOUT, VLLM_URL
 from hybrid_graphrag.generation.llm_client import LLMError
 
 ATTEMPT_TEMPS = (0.0, 0.4, 0.7)  # lần đầu tất định; thử lại thì tăng nhiệt độ để không lặp đúng lỗi cũ
-_THINK = re.compile(r"<think>.*?</think>", re.S)
 _lock = threading.Lock()
 _usage = {"calls": 0, "prompt_tokens": 0, "output_tokens": 0}
-_http = httpx.Client(timeout=httpx.Timeout(900.0, connect=10.0), limits=httpx.Limits(max_connections=128))
+_http = httpx.Client(timeout=httpx.Timeout(VLLM_TIMEOUT, connect=10.0), limits=httpx.Limits(max_connections=128))
 
 
 class VLLMServerError(LLMError):
-    """Server vLLM không phản hồi hoặc báo lỗi: dừng lại."""
+    """Mất kết nối hoặc server báo lỗi 5xx: dừng lại, chạy lại sau khi sửa server."""
 
 
 class VLLMOutputError(LLMError):
-    """Server chạy bình thường nhưng đầu ra không hợp lệ sau nhiều lần thử: bỏ qua chunk này."""
+    """Server chạy bình thường nhưng chunk này lỗi (4xx hoặc đầu ra không hợp lệ): bỏ qua chunk."""
 
 
 def get_vllm_usage() -> dict:
@@ -39,9 +37,8 @@ def call_vllm_json(
     user_prompt: str,
     system_prompt: str,
     schema,
-    max_output_tokens: int = 3000,
+    max_output_tokens: int = G1_MAX_TOKENS,
     model: str | None = None,
-    enable_thinking: bool = False,
 ) -> dict:
     """Gọi server vLLM, ép output JSON theo lược đồ pydantic; trả về dict đã parse."""
     model = model or VLLM_MODEL
@@ -59,14 +56,16 @@ def call_vllm_json(
                 "type": "json_schema",
                 "json_schema": {"name": schema.__name__, "schema": schema.model_json_schema(), "strict": True},
             },
-            "chat_template_kwargs": {"enable_thinking": enable_thinking},
         }
         try:
             r = _http.post(f"{VLLM_URL}/chat/completions", json=body)
         except httpx.HTTPError as e:
             raise VLLMServerError(f"Không kết nối được server vLLM ({VLLM_URL}): {e!r}") from e
-        if r.status_code != 200:
+        if r.status_code >= 500:
             raise VLLMServerError(f"Server vLLM trả {r.status_code}: {r.text[:300]}")
+        if r.status_code != 200:
+            # 4xx: thường do prompt quá dài hoặc tham số không hợp lệ
+            raise VLLMOutputError(f"Server vLLM từ chối yêu cầu ({r.status_code}): {r.text[:300]}")
 
         data = r.json()
         use = data.get("usage") or {}
@@ -76,7 +75,7 @@ def call_vllm_json(
             _usage["output_tokens"] += use.get("completion_tokens", 0) or 0
 
         choice = data["choices"][0]
-        text = _THINK.sub("", choice["message"].get("content") or "").strip()
+        text = (choice["message"].get("content") or "").strip()
         try:
             schema.model_validate_json(text)
             return json.loads(text)
