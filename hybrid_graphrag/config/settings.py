@@ -37,9 +37,11 @@ LLM_TEMPERATURE = 0.0
 # --- G1: trích xuất bằng Qwen chạy trên server vLLM (API tương thích OpenAI) ---
 # "localhost" là chính notebook Kaggle nơi server vLLM được khởi động.
 VLLM_URL = os.environ.get("VLLM_URL", "http://localhost:8000/v1")
+# Nhiều server (mỗi GPU một server): đặt biến môi trường VLLM_URLS, các URL cách nhau bằng dấu phẩy
+VLLM_URLS = [u.strip() for u in os.environ.get("VLLM_URLS", VLLM_URL).split(",") if u.strip()]
 VLLM_MODEL = os.environ.get("VLLM_MODEL", "Qwen/Qwen3-4B-Instruct-2507")
-VLLM_WORKERS = 16         # số yêu cầu gửi song song; vLLM tự gom thành batch
-VLLM_TIMEOUT = 300        # giây tối đa cho một yêu cầu
+VLLM_WORKERS = 16         # số yêu cầu gửi song song; với 2 server dùng --workers 32
+VLLM_TIMEOUT = 1800       # giây tối đa cho một yêu cầu (một yêu cầu 3.000 token mất khoảng 500 giây ở tốc độ hiện tại)
 G1_MAX_TOKENS = 3000      # dùng chung cho build_g1, check_extraction, probe_vllm
 
 # --- Retrieval: tham số mặc định và theo loại câu hỏi (điểm xuất phát để tune) ---
