@@ -1,10 +1,11 @@
 # G1: trích semantic unit + entity + quan hệ từ từng chunk, rồi dựng đồ thị.
+#   python -m hybrid_graphrag.knowledge_base.graph.build_g1 medical --extractor vllm --workers 32 --suffix full
 #   python -m hybrid_graphrag.knowledge_base.graph.build_g1 novel --source Novel-25646 --extractor vllm
 #   python -m hybrid_graphrag.knowledge_base.graph.build_g1 novel --extractor vllm          (cả 20 cuốn)
-#   python -m hybrid_graphrag.knowledge_base.graph.build_g1 medical --extractor vllm
 #   --extractor gemini (mặc định): dùng Gemini, chạy tuần tự (tốn quota)
+#   --suffix NAME: thêm vào tên file kết quả, nhờ đó các lần chạy khác nhau không lẫn nhau (chạy tiếp thì dùng lại cùng suffix)
 #   --max-chunks N: chỉ xử lý N chunk chưa xong của mỗi cuốn (để thử nhỏ)
-#   --graph-only: không gọi LLM, chỉ dựng lại đồ thị từ kết quả đã có (nhớ truyền cùng --extractor/--model)
+#   --graph-only: không gọi LLM, chỉ lọc lại từ đầu ra thô và dựng lại đồ thị (truyền cùng --extractor/--model/--suffix)
 import argparse
 import json
 import re
@@ -41,13 +42,17 @@ def load_chunks(domain: str, source: str | None) -> list[dict]:
     return [c for d in docs for c in make_chunks(d)]
 
 
-def read_done(path) -> dict[str, list[dict]]:
+def read_done(path, reclean: bool = False, stats: dict | None = None) -> dict[str, list[dict]]:
+    """reclean=True: lọc lại từ đầu ra thô (nếu bản ghi có 'raw') bằng bộ lọc hiện hành."""
     done = {}
     if path.exists():
         for line in path.read_text(encoding="utf-8").splitlines():
             if line.strip():
                 rec = json.loads(line)
-                done[rec["chunk_id"]] = rec["units"]
+                if reclean and "raw" in rec:
+                    done[rec["chunk_id"]] = clean_extraction(rec["raw"], stats)
+                else:
+                    done[rec["chunk_id"]] = rec["units"]
     return done
 
 
@@ -59,7 +64,7 @@ def extract_chunk(extractor: str, model: str, text: str) -> dict:
 
 
 def extract_all(units_path, chunks, extractor, model, workers, max_chunks) -> dict[str, list[dict]]:
-    done = read_done(units_path)
+    done = read_done(units_path, reclean=True)
     todo = [c for c in chunks if c["chunk_id"] not in done]
     if max_chunks is not None:
         todo = todo[:max_chunks]
@@ -69,7 +74,9 @@ def extract_all(units_path, chunks, extractor, model, workers, max_chunks) -> di
         return done
 
     stats: dict = {}
-    skipped, consec, t0 = 0, 0, time.time()
+    skipped, consec = 0, 0
+    t0 = last_t = time.time()
+    last_n = 0
     with open(units_path, "a", encoding="utf-8") as f, ThreadPoolExecutor(max_workers=workers) as ex:
         futs = {ex.submit(extract_chunk, extractor, model, c["text"]): c for c in todo}
         try:
@@ -86,19 +93,22 @@ def extract_all(units_path, chunks, extractor, model, workers, max_chunks) -> di
                     continue
                 consec = 0
                 units = clean_extraction(data, stats)
-                f.write(json.dumps({"chunk_id": c["chunk_id"], "units": units}, ensure_ascii=False) + "\n")
+                f.write(json.dumps({"chunk_id": c["chunk_id"], "raw": data, "units": units}, ensure_ascii=False) + "\n")
                 f.flush()
                 done[c["chunk_id"]] = units
                 if n % 10 == 0 or n == len(todo):
-                    el = time.time() - t0
-                    print(f"  {n}/{len(todo)}  ({n / el:.2f} chunk/giây, còn ~{(len(todo) - n) / (n / el) / 60:.0f} phút)")
+                    now = time.time()
+                    rate = (n - last_n) / max(now - last_t, 1e-9)   # tốc độ của 10 chunk gần nhất
+                    last_t, last_n = now, n
+                    print(f"  {n}/{len(todo)}  ({rate:.2f} chunk/giây gần đây, còn ~{(len(todo) - n) / max(rate, 1e-9) / 60:.0f} phút)")
         except LLMError as e:
             ex.shutdown(wait=False, cancel_futures=True)
             print(f"\n[g1] DỪNG: {e}\n[g1] Kết quả đã lưu, chạy lại cùng lệnh để tiếp tục.")
         except KeyboardInterrupt:
             ex.shutdown(wait=False, cancel_futures=True)
             print("\n[g1] Ngắt tay. Kết quả đã lưu, chạy lại để tiếp tục.")
-    print(f"[g1] bỏ qua {skipped} chunk lỗi (sẽ thử lại ở lần chạy sau); thống kê lọc: {stats}")
+    print(f"[g1] {(time.time() - t0) / 60:.1f} phút; bỏ qua {skipped} chunk lỗi (sẽ thử lại ở lần chạy sau)")
+    print(f"[g1] thống kê lọc của lần chạy này: {stats}")
     return done
 
 
@@ -138,12 +148,24 @@ def build_graph(chunks: list[dict], extractions: dict[str, list[dict]]) -> nx.Gr
 def process(domain: str, source: str | None, a, model: str, workers: int) -> None:
     out = index_dir(domain, source if domain == "novel" else None)
     chunks = load_chunks(domain, source)
-    tag = slug(model)
-    units_path, graph_path = out / f"g1_units_{tag}.jsonl", out / f"g1_graph_{tag}.gml"
+    tag = slug(model) + (f"-{a.suffix}" if a.suffix else "")
+    units_path = out / f"g1_units_{tag}.jsonl"
+    graph_path = out / f"g1_graph_{tag}.gml"
+    if a.graph_only and not units_path.exists():
+        cands = sorted(out.glob("g1_units_*.jsonl"))
+        if len(cands) == 1:
+            units_path = cands[0]
+            graph_path = out / units_path.name.replace("g1_units_", "g1_graph_").replace(".jsonl", ".gml")
+            print(f"[g1] không thấy g1_units_{tag}.jsonl, dùng file duy nhất có sẵn: {units_path.name}")
     print(f"\n===== {source or domain}: {len(chunks)} chunk -> {units_path.name} =====")
 
-    extractions = read_done(units_path) if a.graph_only else extract_all(
-        units_path, chunks, a.extractor, model, workers, a.max_chunks)
+    if a.graph_only:
+        fstats: dict = {}
+        extractions = read_done(units_path, reclean=True, stats=fstats)
+        print(f"[g1] đã lọc lại {len(extractions)} chunk từ đầu ra thô; thống kê lọc: {fstats}")
+    else:
+        extractions = extract_all(units_path, chunks, a.extractor, model, workers, a.max_chunks)
+
     g = build_graph(chunks, extractions)
     kinds = [d["kind"] for _, d in g.nodes(data=True)]
     print(f"[g1] đồ thị: {g.number_of_nodes()} node (chunk {kinds.count('chunk')}, unit {kinds.count('unit')}, "
@@ -159,7 +181,8 @@ def main() -> None:
     ap.add_argument("--source", help="novel: chỉ một cuốn (mặc định: cả 20 cuốn)")
     ap.add_argument("--extractor", choices=["gemini", "vllm"], default="gemini")
     ap.add_argument("--model", help="mặc định: VLLM_MODEL (vllm) hoặc LLM_MODEL (gemini)")
-    ap.add_argument("--workers", type=int, default=VLLM_WORKERS, help="chỉ áp dụng cho vllm")
+    ap.add_argument("--suffix", help="hậu tố tên file kết quả, ví dụ 'full'")
+    ap.add_argument("--workers", type=int, default=VLLM_WORKERS, help="chỉ áp dụng cho vllm (16 mỗi server)")
     ap.add_argument("--max-chunks", type=int)
     ap.add_argument("--graph-only", action="store_true")
     a = ap.parse_args()

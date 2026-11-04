@@ -1,6 +1,11 @@
+import json
+import os
 import re
 
 from pydantic import BaseModel
+
+# G1_COMPACT_JSON=1: yêu cầu model xuất JSON một dòng, không thụt dòng (giảm số token ra). Mặc định tắt.
+COMPACT_JSON = os.environ.get("G1_COMPACT_JSON", "0") == "1"
 
 
 class Relation(BaseModel):
@@ -19,7 +24,7 @@ class Extraction(BaseModel):
     semantic_units: list[SemanticUnit]
 
 
-SYSTEM_PROMPT = """You build a knowledge graph from text. Given a passage, split it into semantic units and extract entities and relations from each unit.
+_HEAD_A = """You build a knowledge graph from text. Given a passage, split it into semantic units and extract entities and relations from each unit.
 
 A semantic unit is a self-contained piece of the passage about one event, activity, fact or explanation. A unit usually spans 2-5 consecutive sentences: merge sentences that belong to the same idea, and never make a unit out of one short sentence unless it states a distinct fact. Units follow the order of the passage and together cover all its factual content.
 
@@ -36,14 +41,16 @@ Rules:
 - Times: keep the precision stated in the text and never fill in missing parts: "2024-09" for September 2024, "2024" for a year alone, "1990S" for a decade. Keep relative times as written (for example "LAST WINTER").
 - relation is a short lowercase phrase. Read-aloud test: "SOURCE relation TARGET" must be a complete statement that the passage supports. Qualifiers (manner, reason) belong in the relation text, for example {"source": "ALCOHOL", "relation": "injures and keeps from working properly", "target": "BRAIN"}.
 - source and target must both appear in that unit's entities list, and each must be a single entity. The relation text must not mention any other entity of the unit; if a fact involves three entities, split it into two relations.
-- Use only information stated in the passage. Do not add outside knowledge.
-- If the passage has no factual content (headings, page numbers, boilerplate), return an empty list of semantic units.
+- Use only information stated in the passage. Do not add outside knowledge."""
 
-Example passage:
-In September 2024, Dr. Emily Roberts traveled to Paris to attend the International Conference on Renewable Energy, where she presented her research on solar panel efficiency. Meanwhile, her colleague Dr. John Miller documented new species in the Amazon Rainforest and observed how deforestation harms local wildlife.
+_COMPACT_RULE = '- Output compact JSON on a single line: no indentation, no line breaks, and no spaces after ":" or ",".'
 
-Example output:
-{"semantic_units": [
+_HEAD_B = """
+- If the passage has no factual content (headings, page numbers, boilerplate), return an empty list of semantic units."""
+
+_EXAMPLE_PASSAGE = """In September 2024, Dr. Emily Roberts traveled to Paris to attend the International Conference on Renewable Energy, where she presented her research on solar panel efficiency. Meanwhile, her colleague Dr. John Miller documented new species in the Amazon Rainforest and observed how deforestation harms local wildlife."""
+
+_EXAMPLE_PRETTY = """{"semantic_units": [
   {"summary": "In September 2024, Dr. Emily Roberts traveled to Paris, attended the International Conference on Renewable Energy and presented her research on solar panel efficiency.",
    "entities": ["DR. EMILY ROBERTS", "2024-09", "PARIS", "INTERNATIONAL CONFERENCE ON RENEWABLE ENERGY", "SOLAR PANEL EFFICIENCY"],
    "relations": [
@@ -62,15 +69,34 @@ Example output:
 ]}"""
 
 
+def build_system_prompt(compact: bool = False) -> str:
+    """compact=False cho đúng prompt cũ. compact=True: thêm luật JSON gọn và đổi ví dụ sang một dòng."""
+    head = _HEAD_A + ("\n" + _COMPACT_RULE if compact else "") + _HEAD_B
+    example = (
+        json.dumps(json.loads(_EXAMPLE_PRETTY), ensure_ascii=False, separators=(",", ":"))
+        if compact else _EXAMPLE_PRETTY
+    )
+    return f"{head}\n\nExample passage:\n{_EXAMPLE_PASSAGE}\n\nExample output:\n{example}"
+
+
+SYSTEM_PROMPT = build_system_prompt(COMPACT_JSON)
+
+
 def build_extraction_prompt(text: str) -> tuple[str, str]:
-    """Trả về (system_prompt, user_prompt). Phần cố định nằm ở system để dễ được cache phía Gemini."""
+    """Trả về (system_prompt, user_prompt). Phần cố định nằm ở system để dễ được cache."""
     return SYSTEM_PROMPT, f"Passage:\n{text}"
 
 
 GENERIC_ENTITIES = {
     "PEOPLE", "PERSON", "PERSONS", "MEN", "MAN", "WOMEN", "WOMAN", "ONE", "SOMEONE",
     "THING", "THINGS", "WAY", "WELL", "ABOUT", "DOING",
+    "YOU", "I", "WE", "HE", "SHE", "IT", "THEY", "HURT", "KILL",
 }  # mở rộng dần dựa trên data_statistic/g1_stat.py (entity xuất hiện nhiều nhưng vô nghĩa)
+
+# "MEN WHO DRINK LIQUOR", "PEOPLE WHO SUNBURN EASILY"...: nhóm chung chung, không phải thực thể.
+# Không lọc "BOY WHO LOOKED AT THE SUN" vì danh từ đầu không nằm trong danh sách này.
+GENERIC_GROUP = re.compile(r"^(MEN|MAN|PEOPLE|PERSONS?|WOMEN|WOMAN|ONE|THOSE|ANYONE) WHO\b")
+TRAILING_FUNCTION = re.compile(r"\s+(the|his|her|its|their|my|our|your)$")
 
 
 def _norm(s: str) -> str:
@@ -100,9 +126,9 @@ def clean_extraction(data: dict, stats: dict | None = None) -> list[dict]:
         if not summary:
             continue
         ents = list(dict.fromkeys(e for e in map(_norm, u["entities"]) if e))
-        n_before = len(ents)
-        ents = [e for e in ents if e not in GENERIC_ENTITIES]
-        stats["drop_generic_entity"] = stats.get("drop_generic_entity", 0) + n_before - len(ents)
+        dropped = {e for e in ents if e in GENERIC_ENTITIES or GENERIC_GROUP.match(e)}
+        ents = [e for e in ents if e not in dropped]
+        stats["drop_generic_entity"] = stats.get("drop_generic_entity", 0) + len(dropped)
 
         pm = _plural_map(ents)
         ents = list(dict.fromkeys(pm.get(e, e) for e in ents))
@@ -111,16 +137,15 @@ def clean_extraction(data: dict, stats: dict | None = None) -> list[dict]:
         for r in u["relations"]:
             s, t = _norm(r["source"]), _norm(r["target"])
             s, t = pm.get(s, s), pm.get(t, t)
-            rel = re.sub(r"\s+the$", "", r["relation"].strip().lower())
+            rel = TRAILING_FUNCTION.sub("", r["relation"].strip().lower())
             if not (s and t and rel) or s == t:
                 bump("drop_empty_or_self")
                 continue
-            if s in GENERIC_ENTITIES or t in GENERIC_ENTITIES:
+            if s in dropped or t in dropped:
                 bump("drop_generic_relation")
                 continue
             if any(_mentions(rel, x) for x in ents if x not in (s, t) and len(x) > 2):
-                bump("drop_third_entity")  # relation chứa entity thứ ba, thông tin vẫn còn trong summary
-                continue
+                bump("warn_third_entity")  # chỉ đếm, vẫn giữ quan hệ: nó vẫn nối đúng source và target
             if (s, rel, t) in seen:
                 continue
             seen.add((s, rel, t))
