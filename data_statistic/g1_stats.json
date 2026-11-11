@@ -1,0 +1,1304 @@
+[
+  {
+    "name": "medical",
+    "chunks": 966,
+    "chunks_covered": 966,
+    "chunks_no_unit": 1,
+    "units": 3641,
+    "units_per_chunk": 3.769151138716356,
+    "entities_per_unit": 8.670969513869816,
+    "relations_per_unit": 5.527053007415545,
+    "nodes": 15437,
+    "edges": 50150,
+    "entity_nodes": 10830,
+    "relation_edges": 14943,
+    "components": 2,
+    "largest_component_pct": 99.99352205739457,
+    "degree_mean": 5.674238227146814,
+    "degree_median": 2.0,
+    "degree_max": 657,
+    "entities_degree1_pct": 10.941828254847646,
+    "top_hubs": [
+      [
+        657,
+        "PATIENT"
+      ],
+      [
+        583,
+        "CANCER"
+      ],
+      [
+        497,
+        "TREATMENT"
+      ],
+      [
+        356,
+        "LYMPH NODES"
+      ],
+      [
+        355,
+        "CARE TEAM"
+      ],
+      [
+        333,
+        "CHEMOTHERAPY"
+      ],
+      [
+        285,
+        "SURGERY"
+      ],
+      [
+        283,
+        "CANCER CELLS"
+      ],
+      [
+        281,
+        "TUMOR"
+      ],
+      [
+        265,
+        "BIOPSY"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-30752",
+    "chunks": 159,
+    "chunks_covered": 159,
+    "chunks_no_unit": 1,
+    "units": 448,
+    "units_per_chunk": 2.8176100628930816,
+    "entities_per_unit": 10.767857142857142,
+    "relations_per_unit": 6.189732142857143,
+    "nodes": 3890,
+    "edges": 7835,
+    "entity_nodes": 3283,
+    "relation_edges": 2569,
+    "components": 4,
+    "largest_component_pct": 99.53727506426735,
+    "degree_mean": 3.0325921413341455,
+    "degree_median": 2,
+    "degree_max": 141,
+    "entities_degree1_pct": 19.37252512945477,
+    "top_hubs": [
+      [
+        141,
+        "MAYAS"
+      ],
+      [
+        87,
+        "YUCATAN"
+      ],
+      [
+        82,
+        "MAYA"
+      ],
+      [
+        74,
+        "CHAACMOL"
+      ],
+      [
+        62,
+        "EGYPTIANS"
+      ],
+      [
+        55,
+        "UXMAL"
+      ],
+      [
+        48,
+        "MAYAB"
+      ],
+      [
+        47,
+        "AUTHOR"
+      ],
+      [
+        42,
+        "SPEAKER"
+      ],
+      [
+        42,
+        "OSIRIS"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-51410",
+    "chunks": 307,
+    "chunks_covered": 307,
+    "chunks_no_unit": 2,
+    "units": 845,
+    "units_per_chunk": 2.752442996742671,
+    "entities_per_unit": 10.770414201183431,
+    "relations_per_unit": 5.98698224852071,
+    "nodes": 6985,
+    "edges": 14306,
+    "entity_nodes": 5833,
+    "relation_edges": 4407,
+    "components": 4,
+    "largest_component_pct": 99.79957050823192,
+    "degree_mean": 3.063260757757586,
+    "degree_median": 2,
+    "degree_max": 423,
+    "entities_degree1_pct": 24.772844162523572,
+    "top_hubs": [
+      [
+        423,
+        "DR. INGLIS"
+      ],
+      [
+        254,
+        "SPEAKER"
+      ],
+      [
+        224,
+        "ELSI"
+      ],
+      [
+        190,
+        "NARRATOR"
+      ],
+      [
+        119,
+        "UNIT"
+      ],
+      [
+        104,
+        "HOSPITAL"
+      ],
+      [
+        103,
+        "GROUP"
+      ],
+      [
+        98,
+        "MR. INGLIS"
+      ],
+      [
+        89,
+        "HER"
+      ],
+      [
+        80,
+        "THEY"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-58553",
+    "chunks": 177,
+    "chunks_covered": 177,
+    "chunks_no_unit": 3,
+    "units": 561,
+    "units_per_chunk": 3.169491525423729,
+    "entities_per_unit": 9.957219251336898,
+    "relations_per_unit": 5.827094474153298,
+    "nodes": 4553,
+    "edges": 8985,
+    "entity_nodes": 3815,
+    "relation_edges": 2854,
+    "components": 4,
+    "largest_component_pct": 99.9341093784318,
+    "degree_mean": 2.9562254259501968,
+    "degree_median": 2,
+    "degree_max": 221,
+    "entities_degree1_pct": 25.216251638269988,
+    "top_hubs": [
+      [
+        221,
+        "ANGELINE"
+      ],
+      [
+        174,
+        "NARRATOR"
+      ],
+      [
+        130,
+        "ANGELINE STICKNEY"
+      ],
+      [
+        120,
+        "ASAPH HALL"
+      ],
+      [
+        113,
+        "MRS. HALL"
+      ],
+      [
+        108,
+        "MR. HALL"
+      ],
+      [
+        107,
+        "SPEAKER"
+      ],
+      [
+        87,
+        "MOTHER"
+      ],
+      [
+        80,
+        "ANGELINE HALL"
+      ],
+      [
+        57,
+        "C. A. S. HALL"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-10762",
+    "chunks": 338,
+    "chunks_covered": 338,
+    "chunks_no_unit": 1,
+    "units": 644,
+    "units_per_chunk": 1.9053254437869822,
+    "entities_per_unit": 12.420807453416149,
+    "relations_per_unit": 6.683229813664596,
+    "nodes": 7402,
+    "edges": 12629,
+    "entity_nodes": 6420,
+    "relation_edges": 4016,
+    "components": 9,
+    "largest_component_pct": 98.25722777627668,
+    "degree_mean": 2.492367601246106,
+    "degree_median": 2.0,
+    "degree_max": 215,
+    "entities_degree1_pct": 25.482866043613708,
+    "top_hubs": [
+      [
+        215,
+        "SPEAKER"
+      ],
+      [
+        147,
+        "MERMAN"
+      ],
+      [
+        111,
+        "NARRATOR"
+      ],
+      [
+        84,
+        "HINZE"
+      ],
+      [
+        80,
+        "AUTHOR"
+      ],
+      [
+        72,
+        "MAN"
+      ],
+      [
+        72,
+        "LENTULUS"
+      ],
+      [
+        63,
+        "MIXTUS"
+      ],
+      [
+        56,
+        "TOUCHWOOD"
+      ],
+      [
+        52,
+        "WRITER"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-26183",
+    "chunks": 424,
+    "chunks_covered": 423,
+    "chunks_no_unit": 24,
+    "units": 1438,
+    "units_per_chunk": 3.399527186761229,
+    "entities_per_unit": 8.472878998609179,
+    "relations_per_unit": 4.805980528511822,
+    "nodes": 9232,
+    "edges": 19937,
+    "entity_nodes": 7371,
+    "relation_edges": 6326,
+    "components": 26,
+    "largest_component_pct": 99.57755632582322,
+    "degree_mean": 3.367928367928368,
+    "degree_median": 2,
+    "degree_max": 717,
+    "entities_degree1_pct": 21.001221001221,
+    "top_hubs": [
+      [
+        717,
+        "STERNE"
+      ],
+      [
+        368,
+        "YORICK"
+      ],
+      [
+        315,
+        "AUTHOR"
+      ],
+      [
+        298,
+        "BODE"
+      ],
+      [
+        184,
+        "SENTIMENTAL JOURNEY"
+      ],
+      [
+        138,
+        "LEIPZIG"
+      ],
+      [
+        133,
+        "GOETHE"
+      ],
+      [
+        132,
+        "SCHUMMEL"
+      ],
+      [
+        123,
+        "SHANDY"
+      ],
+      [
+        111,
+        "GERMANY"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-29973",
+    "chunks": 153,
+    "chunks_covered": 153,
+    "chunks_no_unit": 4,
+    "units": 589,
+    "units_per_chunk": 3.849673202614379,
+    "entities_per_unit": 7.589134125636672,
+    "relations_per_unit": 4.207130730050934,
+    "nodes": 3433,
+    "edges": 7307,
+    "entity_nodes": 2691,
+    "relation_edges": 2251,
+    "components": 5,
+    "largest_component_pct": 99.88348383338189,
+    "degree_mean": 3.332961724266072,
+    "degree_median": 2,
+    "degree_max": 253,
+    "entities_degree1_pct": 21.1073950204385,
+    "top_hubs": [
+      [
+        253,
+        "PAPINEAU"
+      ],
+      [
+        112,
+        "PATRIOTES"
+      ],
+      [
+        108,
+        "REBELS"
+      ],
+      [
+        91,
+        "FRENCH CANADIANS"
+      ],
+      [
+        76,
+        "CANADA"
+      ],
+      [
+        76,
+        "ASSEMBLY"
+      ],
+      [
+        63,
+        "LORD GOSFORD"
+      ],
+      [
+        58,
+        "ST DENIS"
+      ],
+      [
+        57,
+        "LORD DURHAM"
+      ],
+      [
+        53,
+        "NINETY-TWO RESOLUTIONS"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-10146",
+    "chunks": 227,
+    "chunks_covered": 227,
+    "chunks_no_unit": 0,
+    "units": 940,
+    "units_per_chunk": 4.140969162995595,
+    "entities_per_unit": 7.467021276595744,
+    "relations_per_unit": 4.471276595744681,
+    "nodes": 5801,
+    "edges": 11816,
+    "entity_nodes": 4634,
+    "relation_edges": 3885,
+    "components": 1,
+    "largest_component_pct": 100.0,
+    "degree_mean": 3.1853690116529996,
+    "degree_median": 2.0,
+    "degree_max": 186,
+    "entities_degree1_pct": 17.97583081570997,
+    "top_hubs": [
+      [
+        186,
+        "ST. PAUL"
+      ],
+      [
+        83,
+        "MINNESOTIAN"
+      ],
+      [
+        75,
+        "FIRE"
+      ],
+      [
+        71,
+        "SECOND MINNESOTA"
+      ],
+      [
+        68,
+        "CITY"
+      ],
+      [
+        66,
+        "GEN. GRANT"
+      ],
+      [
+        63,
+        "INDIANS"
+      ],
+      [
+        62,
+        "REBELS"
+      ],
+      [
+        47,
+        "TERRITORIAL PRINTERS"
+      ],
+      [
+        46,
+        "MINNESOTA"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-47676",
+    "chunks": 278,
+    "chunks_covered": 278,
+    "chunks_no_unit": 20,
+    "units": 807,
+    "units_per_chunk": 2.902877697841727,
+    "entities_per_unit": 9.861214374225527,
+    "relations_per_unit": 5.483271375464684,
+    "nodes": 6333,
+    "edges": 12673,
+    "entity_nodes": 5248,
+    "relation_edges": 3963,
+    "components": 21,
+    "largest_component_pct": 99.68419390494236,
+    "degree_mean": 3.0161966463414633,
+    "degree_median": 2.0,
+    "degree_max": 683,
+    "entities_degree1_pct": 22.103658536585368,
+    "top_hubs": [
+      [
+        683,
+        "SPEAKER"
+      ],
+      [
+        115,
+        "MISTRESS"
+      ],
+      [
+        91,
+        "OVID"
+      ],
+      [
+        90,
+        "LOVE"
+      ],
+      [
+        68,
+        "CORINNA"
+      ],
+      [
+        66,
+        "POET"
+      ],
+      [
+        55,
+        "PERSON"
+      ],
+      [
+        52,
+        "HUSBAND"
+      ],
+      [
+        52,
+        "CUPID"
+      ],
+      [
+        44,
+        "VENUS"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-10321",
+    "chunks": 290,
+    "chunks_covered": 290,
+    "chunks_no_unit": 0,
+    "units": 738,
+    "units_per_chunk": 2.5448275862068965,
+    "entities_per_unit": 13.502710027100271,
+    "relations_per_unit": 7.9471544715447155,
+    "nodes": 7524,
+    "edges": 15601,
+    "entity_nodes": 6496,
+    "relation_edges": 5006,
+    "components": 1,
+    "largest_component_pct": 100.0,
+    "degree_mean": 3.0586514778325125,
+    "degree_median": 2.0,
+    "degree_max": 953,
+    "entities_degree1_pct": 21.936576354679804,
+    "top_hubs": [
+      [
+        953,
+        "HEYWOOD"
+      ],
+      [
+        778,
+        "RUDOLPH"
+      ],
+      [
+        147,
+        "WUTZLER"
+      ],
+      [
+        144,
+        "CHANTEL"
+      ],
+      [
+        97,
+        "CAPTAIN"
+      ],
+      [
+        93,
+        "CAPTAIN KNEEBONE"
+      ],
+      [
+        84,
+        "THEY"
+      ],
+      [
+        69,
+        "RIVER"
+      ],
+      [
+        69,
+        "NESBIT"
+      ],
+      [
+        62,
+        "MISS DRAKE"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-8559",
+    "chunks": 211,
+    "chunks_covered": 211,
+    "chunks_no_unit": 1,
+    "units": 532,
+    "units_per_chunk": 2.5213270142180093,
+    "entities_per_unit": 11.157894736842104,
+    "relations_per_unit": 6.631578947368421,
+    "nodes": 5371,
+    "edges": 9753,
+    "entity_nodes": 4628,
+    "relation_edges": 3293,
+    "components": 5,
+    "largest_component_pct": 98.65946751070564,
+    "degree_mean": 2.7039757994814173,
+    "degree_median": 2.0,
+    "degree_max": 42,
+    "entities_degree1_pct": 20.051858254105444,
+    "top_hubs": [
+      [
+        42,
+        "WATER"
+      ],
+      [
+        28,
+        "ENGINE"
+      ],
+      [
+        27,
+        "APPARATUS"
+      ],
+      [
+        26,
+        "LUCIDITY"
+      ],
+      [
+        26,
+        "LIME"
+      ],
+      [
+        26,
+        "ENGLAND"
+      ],
+      [
+        26,
+        "AIR"
+      ],
+      [
+        25,
+        "GRANITE"
+      ],
+      [
+        25,
+        "FLAMES"
+      ],
+      [
+        24,
+        "NEW YORK"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-47558",
+    "chunks": 133,
+    "chunks_covered": 133,
+    "chunks_no_unit": 0,
+    "units": 434,
+    "units_per_chunk": 3.263157894736842,
+    "entities_per_unit": 9.46774193548387,
+    "relations_per_unit": 5.576036866359447,
+    "nodes": 3283,
+    "edges": 6672,
+    "entity_nodes": 2716,
+    "relation_edges": 2137,
+    "components": 2,
+    "largest_component_pct": 99.32988120621383,
+    "degree_mean": 3.083578792341679,
+    "degree_median": 2.0,
+    "degree_max": 115,
+    "entities_degree1_pct": 21.575846833578794,
+    "top_hubs": [
+      [
+        115,
+        "COUSIN CÆSAR"
+      ],
+      [
+        83,
+        "BRINDLE BILL"
+      ],
+      [
+        80,
+        "TOM"
+      ],
+      [
+        80,
+        "ROXIE"
+      ],
+      [
+        64,
+        "SUZA"
+      ],
+      [
+        64,
+        "DON CARLO"
+      ],
+      [
+        58,
+        "ROXIE DAYMON"
+      ],
+      [
+        58,
+        "AUNT KATY"
+      ],
+      [
+        53,
+        "S. S. SIMON"
+      ],
+      [
+        52,
+        "YOUNG SIMON"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-25646",
+    "chunks": 87,
+    "chunks_covered": 87,
+    "chunks_no_unit": 2,
+    "units": 307,
+    "units_per_chunk": 3.528735632183908,
+    "entities_per_unit": 8.788273615635179,
+    "relations_per_unit": 5.208469055374593,
+    "nodes": 1938,
+    "edges": 4380,
+    "entity_nodes": 1544,
+    "relation_edges": 1375,
+    "components": 3,
+    "largest_component_pct": 99.8968008255934,
+    "degree_mean": 3.528497409326425,
+    "degree_median": 2.0,
+    "degree_max": 158,
+    "entities_degree1_pct": 19.624352331606218,
+    "top_hubs": [
+      [
+        158,
+        "ALCOHOL"
+      ],
+      [
+        69,
+        "BODY"
+      ],
+      [
+        67,
+        "TOBACCO"
+      ],
+      [
+        67,
+        "MUSCLES"
+      ],
+      [
+        60,
+        "BRAIN"
+      ],
+      [
+        58,
+        "FOOD"
+      ],
+      [
+        56,
+        "SUGAR"
+      ],
+      [
+        55,
+        "NERVES"
+      ],
+      [
+        51,
+        "STOMACH"
+      ],
+      [
+        46,
+        "WATER"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-5956",
+    "chunks": 239,
+    "chunks_covered": 239,
+    "chunks_no_unit": 0,
+    "units": 473,
+    "units_per_chunk": 1.9790794979079498,
+    "entities_per_unit": 12.446088794926004,
+    "relations_per_unit": 7.274841437632135,
+    "nodes": 4468,
+    "edges": 9102,
+    "entity_nodes": 3756,
+    "relation_edges": 2776,
+    "components": 1,
+    "largest_component_pct": 100.0,
+    "degree_mean": 3.036474973375932,
+    "degree_median": 2.0,
+    "degree_max": 288,
+    "entities_degree1_pct": 28.594249201277954,
+    "top_hubs": [
+      [
+        288,
+        "GALLEGHER"
+      ],
+      [
+        180,
+        "VAN BIBBER"
+      ],
+      [
+        120,
+        "RAGS"
+      ],
+      [
+        105,
+        "MAN"
+      ],
+      [
+        94,
+        "OLD MAN"
+      ],
+      [
+        84,
+        "GIRL"
+      ],
+      [
+        81,
+        "YOUNG MAN"
+      ],
+      [
+        80,
+        "BISHOP"
+      ],
+      [
+        72,
+        "BABY"
+      ],
+      [
+        69,
+        "SPEAKER"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-2544",
+    "chunks": 317,
+    "chunks_covered": 317,
+    "chunks_no_unit": 0,
+    "units": 710,
+    "units_per_chunk": 2.2397476340694005,
+    "entities_per_unit": 11.325352112676056,
+    "relations_per_unit": 6.477464788732394,
+    "nodes": 5904,
+    "edges": 12475,
+    "entity_nodes": 4877,
+    "relation_edges": 3772,
+    "components": 1,
+    "largest_component_pct": 100.0,
+    "degree_mean": 3.1857699405372153,
+    "degree_median": 2,
+    "degree_max": 223,
+    "entities_degree1_pct": 28.419110108673365,
+    "top_hubs": [
+      [
+        223,
+        "MISS TROTTER"
+      ],
+      [
+        214,
+        "GIRL"
+      ],
+      [
+        197,
+        "CISSY"
+      ],
+      [
+        192,
+        "BRICE"
+      ],
+      [
+        124,
+        "BRAY"
+      ],
+      [
+        117,
+        "MAN"
+      ],
+      [
+        87,
+        "FLEMING"
+      ],
+      [
+        83,
+        "EDITOR"
+      ],
+      [
+        81,
+        "HE"
+      ],
+      [
+        74,
+        "BILL"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-41603",
+    "chunks": 245,
+    "chunks_covered": 245,
+    "chunks_no_unit": 1,
+    "units": 592,
+    "units_per_chunk": 2.416326530612245,
+    "entities_per_unit": 10.613175675675675,
+    "relations_per_unit": 7.10472972972973,
+    "nodes": 4466,
+    "edges": 10202,
+    "entity_nodes": 3629,
+    "relation_edges": 3373,
+    "components": 2,
+    "largest_component_pct": 99.97760859829825,
+    "degree_mean": 3.5775695783962522,
+    "degree_median": 2,
+    "degree_max": 376,
+    "entities_degree1_pct": 21.49352438688344,
+    "top_hubs": [
+      [
+        376,
+        "TOTO"
+      ],
+      [
+        222,
+        "BRUIN"
+      ],
+      [
+        196,
+        "BEAR"
+      ],
+      [
+        157,
+        "RACCOON"
+      ],
+      [
+        115,
+        "BOY"
+      ],
+      [
+        112,
+        "EILY"
+      ],
+      [
+        105,
+        "CHOP-CHIN"
+      ],
+      [
+        104,
+        "PRINCESS"
+      ],
+      [
+        97,
+        "SQUIRREL"
+      ],
+      [
+        96,
+        "DW53"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-54537",
+    "chunks": 176,
+    "chunks_covered": 176,
+    "chunks_no_unit": 1,
+    "units": 846,
+    "units_per_chunk": 4.806818181818182,
+    "entities_per_unit": 6.294326241134752,
+    "relations_per_unit": 3.7387706855791962,
+    "nodes": 4446,
+    "edges": 9169,
+    "entity_nodes": 3424,
+    "relation_edges": 2998,
+    "components": 2,
+    "largest_component_pct": 99.97750787224471,
+    "degree_mean": 3.3063668224299065,
+    "degree_median": 2.0,
+    "degree_max": 144,
+    "entities_degree1_pct": 16.063084112149532,
+    "top_hubs": [
+      [
+        144,
+        "MUSICAL INSTRUMENTS"
+      ],
+      [
+        74,
+        "HARP"
+      ],
+      [
+        58,
+        "LYRE"
+      ],
+      [
+        54,
+        "IN THE TEXT"
+      ],
+      [
+        54,
+        "BELLS"
+      ],
+      [
+        51,
+        "INSTRUMENTS"
+      ],
+      [
+        50,
+        "LUTE"
+      ],
+      [
+        41,
+        "FLUTE"
+      ],
+      [
+        41,
+        "DULCIMER"
+      ],
+      [
+        39,
+        "BRITISH MUSEUM"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-10356",
+    "chunks": 290,
+    "chunks_covered": 290,
+    "chunks_no_unit": 5,
+    "units": 1095,
+    "units_per_chunk": 3.7758620689655173,
+    "entities_per_unit": 8.887671232876713,
+    "relations_per_unit": 5.2785388127853885,
+    "nodes": 7705,
+    "edges": 16082,
+    "entity_nodes": 6320,
+    "relation_edges": 5285,
+    "components": 6,
+    "largest_component_pct": 99.93510707332901,
+    "degree_mean": 3.207594936708861,
+    "degree_median": 2.0,
+    "degree_max": 196,
+    "entities_degree1_pct": 17.800632911392405,
+    "top_hubs": [
+      [
+        196,
+        "MOROCCO"
+      ],
+      [
+        138,
+        "FEZ"
+      ],
+      [
+        135,
+        "BEY"
+      ],
+      [
+        134,
+        "MOORS"
+      ],
+      [
+        134,
+        "ARABS"
+      ],
+      [
+        94,
+        "GROUP"
+      ],
+      [
+        90,
+        "TANGIER"
+      ],
+      [
+        74,
+        "TAFILETT"
+      ],
+      [
+        71,
+        "MOGADOR"
+      ],
+      [
+        69,
+        "SULTAN"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-40700",
+    "chunks": 126,
+    "chunks_covered": 126,
+    "chunks_no_unit": 0,
+    "units": 327,
+    "units_per_chunk": 2.5952380952380953,
+    "entities_per_unit": 10.458715596330276,
+    "relations_per_unit": 6.620795107033639,
+    "nodes": 2214,
+    "edges": 5253,
+    "entity_nodes": 1761,
+    "relation_edges": 1531,
+    "components": 1,
+    "largest_component_pct": 100.0,
+    "degree_mean": 3.6666666666666665,
+    "degree_median": 2,
+    "degree_max": 429,
+    "entities_degree1_pct": 23.28222600795003,
+    "top_hubs": [
+      [
+        429,
+        "DEAN"
+      ],
+      [
+        277,
+        "GEORGIANA"
+      ],
+      [
+        219,
+        "SHEBA"
+      ],
+      [
+        211,
+        "SALOME"
+      ],
+      [
+        164,
+        "BLORE"
+      ],
+      [
+        155,
+        "SIR TRISTRAM"
+      ],
+      [
+        123,
+        "HANNAH"
+      ],
+      [
+        99,
+        "NOAH"
+      ],
+      [
+        84,
+        "TARVER"
+      ],
+      [
+        80,
+        "DARBEY"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-4128",
+    "chunks": 88,
+    "chunks_covered": 88,
+    "chunks_no_unit": 0,
+    "units": 241,
+    "units_per_chunk": 2.7386363636363638,
+    "entities_per_unit": 12.514522821576763,
+    "relations_per_unit": 8.817427385892117,
+    "nodes": 1933,
+    "edges": 4734,
+    "entity_nodes": 1604,
+    "relation_edges": 1491,
+    "components": 1,
+    "largest_component_pct": 100.0,
+    "degree_mean": 3.7306733167082293,
+    "degree_median": 2.0,
+    "degree_max": 576,
+    "entities_degree1_pct": 15.897755610972569,
+    "top_hubs": [
+      [
+        576,
+        "NARRATOR"
+      ],
+      [
+        134,
+        "SPEAKER"
+      ],
+      [
+        87,
+        "FATHER"
+      ],
+      [
+        51,
+        "OFFICE"
+      ],
+      [
+        50,
+        "WIFE"
+      ],
+      [
+        48,
+        "HOUSE"
+      ],
+      [
+        42,
+        "WARDROBE"
+      ],
+      [
+        38,
+        "KING"
+      ],
+      [
+        36,
+        "SAMUEL PEPYS"
+      ],
+      [
+        36,
+        "MR. MOORE"
+      ]
+    ]
+  },
+  {
+    "name": "Novel-44557",
+    "chunks": 223,
+    "chunks_covered": 223,
+    "chunks_no_unit": 2,
+    "units": 510,
+    "units_per_chunk": 2.286995515695067,
+    "entities_per_unit": 12.976470588235294,
+    "relations_per_unit": 8.205882352941176,
+    "nodes": 4746,
+    "edges": 10569,
+    "entity_nodes": 4013,
+    "relation_edges": 3504,
+    "components": 3,
+    "largest_component_pct": 99.95785924989465,
+    "degree_mean": 3.3797657612758534,
+    "degree_median": 2,
+    "degree_max": 273,
+    "entities_degree1_pct": 16.52130575629205,
+    "top_hubs": [
+      [
+        273,
+        "GROUP"
+      ],
+      [
+        242,
+        "NARRATOR"
+      ],
+      [
+        165,
+        "CHARLES"
+      ],
+      [
+        108,
+        "SPEAKER"
+      ],
+      [
+        80,
+        "CORNWALL"
+      ],
+      [
+        78,
+        "SEA"
+      ],
+      [
+        70,
+        "TRAVELERS"
+      ],
+      [
+        62,
+        "LIZARD"
+      ],
+      [
+        61,
+        "THEY"
+      ],
+      [
+        59,
+        "JOHN CURGENVEN"
+      ]
+    ]
+  }
+]
